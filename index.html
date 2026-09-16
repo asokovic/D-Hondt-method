@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D'Hondt Method Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <h1>D'Hondt Method Calculator</h1>
+    <p>This tool calculates the allocation of parliamentary seats using the D'Hondt method, which is in use in more than 50 countries worldwide.<br><br>Two modes are currently available: a Basic calculator, which allows the user to specify the number of seats and the electoral threshold, and a calculator specific to Serbia, which applies country-specific rules regarding national minority parties. Support for additional countries will be added in future updates.
+</p>
+  </header>
+
+  <section>
+    <h2>Mode</h2>
+    <div class="mode-switch">
+      <button type="button" class="mode-option is-active" data-mode="basic">Basic</button>
+      <button type="button" class="mode-option" data-mode="serbia">Serbia</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Configuration</h2>
+    <div class="config-grid">
+      <div class="field">
+        <label for="total-seats">Total seats</label>
+        <input type="number" id="total-seats" min="1" step="1">
+      </div>
+      <div class="field">
+        <label for="threshold">Threshold (%)</label>
+        <input type="number" id="threshold" min="0" max="100" step="0.1">
+      </div>
+      <p id="threshold-note" class="threshold-note is-hidden"></p>
+
+      <div class="field">
+        <label for="registered-voters">Registered voters (optional)</label>
+        <input type="number" id="registered-voters" min="0" step="1">
+      </div>
+      <div class="field">
+        <label for="total-votes-cast" id="total-votes-cast-label">Total votes cast (optional)</label>
+        <input type="number" id="total-votes-cast" min="0" step="1">
+      </div>
+    <!--<p class="field-hint">Leave these blank to calculate vote share from the parties' votes alone. Fill in "Total votes cast" to account for invalid or blank ballots, and add "Registered voters" to also show turnout.</p>-->
+    </div>
+  </section>
+
+  <section>
+    <h2>Parties</h2>
+    <div id="party-list"></div>
+    <button type="button" class="secondary" id="add-party">Add party</button>
+  </section>
+
+  <section>
+    <button type="button" class="primary" id="calculate-btn">Calculate seats</button>
+  </section>
+
+  <section id="results-section" class="is-hidden">
+    <h2>Results</h2>
+
+    <div class="hemicycle-wrapper is-hidden">
+      <svg id="hemicycle" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+
+    <p id="turnout-summary" class="turnout-summary is-hidden"></p>
+
+    <table id="results-table"></table>
+
+    <div id="quotients-wrapper" class="is-hidden">
+      <button type="button" class="text-link" id="quotients-toggle">Show calculation steps</button>
+      <div id="quotients-table-container" class="is-hidden">
+        <table id="quotients-table"></table>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script src="js/presets/countries.js"></script>
+<script src="js/rules/basic.js"></script>
+<script src="js/rules/serbia.js"></script>
+<script src="js/engine/dhondt.js"></script>
+<script src="js/ui/partyForm.js"></script>
+<script src="js/ui/modeToggle.js"></script>
+<script src="js/ui/resultsView.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
